@@ -1,0 +1,150 @@
+<div *ngIf="showTopNavbar">
+
+	   <!-- Header -->
+	   <header class="header">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="header_content d-flex flex-row align-items-center justify-content-start">
+							<div class="logo">
+								<a [routerLink]="['/']" class="flex"  >
+									<img class="siteSmallLogo" src="assets/logo.png" />
+									<p> Dealbuddy </p>
+								</a>
+							</div>
+							<div class="weather">
+								<div class="search_container ml-auto search_container_input">
+										<img class="header_search_icon navbar_search_input" src="assets/new/images/search_2.png" alt="">
+										<input [ngModelOptions]="{standalone: true}" id="navbar_search_input" type="text" class="header_search_input"  placeholder="Find a great deal!"   [(ngModel)]="searchKeyword" (keyup)="searchThisKeyword($event)"  >
+								</div>
+								<div class="section_panel_more top_search_results" >
+									<ul>
+										<li  class="opener" > 
+											<ul id="openerResults" >
+												<li *ngFor="let feed of searchResults" class="flex feedBottomConnections" (click)="utils.openFeedDialogInfo(feed)"   > 
+															<p class="img" > 
+																<!-- card image -->
+																<img  alt="search_image"  src="{{ feed?.imageUrl }}" onerror="this.onerror=null;this.src='assets/img/deals_2.png' " />
+															</p>
+															<p  class="top_search_results_title"> {{ feed?.title }} </p>
+															<p class="img open_this_deal" > 
+																<img  src="assets/new/images/open.png" alt="open_this_deal" > 
+															</p>
+												</li>
+												
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div>
+								<input [ngModelOptions]="{standalone: true}" id="navbar_search_input" type="text" class="header_search_input"  placeholder="Add Item in shoplist"   [(ngModel)]="keywordValue" >
+								<span class="glyphicon glyphicon-plus ml-1" (click)="addThisKeyword()"></span>
+							</div>
+							<div class="mar-50">
+								<span><label routerLink="./wishlist" class="curson-pointer">ShopList</label></span>
+							</div>
+							<div class="search_container ml-auto">
+	
+								<div class="weather">
+	
+									<div class="temperature">
+	
+											<p> 
+												<img class="header_search_icon_session" src="assets/img/avatar/avatar.png" alt=""> 
+											</p>
+	
+											<p *ngIf="utils.returnLoggedInOrNot() == true" routerLink="/profile"  >  Profile  </p>
+	
+											<p  *ngIf="utils.returnLoggedInOrNot() == false"  >   Join us!  </p>
+										
+									</div>
+	
+									<div class="section_panel_more section_panel_more_top" >
+	
+										<ul>
+											<li> 
+												<ul>
+								
+													<li  *ngIf="utils.returnLoggedInOrNot() == false"  (click)="utils.openSessionDialogInfo({ showChooseState: 'login' })" >   <a> Login </a> </li>
+													<li  *ngIf="utils.returnLoggedInOrNot() == false"  (click)="utils.openSessionDialogInfo({ showChooseState: 'signup' })" >  <a> Signup </a> </li>
+								
+													<li  *ngIf="utils.returnLoggedInOrNot() == true" routerLink="/profile"  >  <a> <i class="fa fa-user" ></i> My Profile </a>   </li>
+													<li  *ngIf="utils.returnLoggedInOrNot() == true" (click)="logTheUserOut()" >  <a> Log out </a> </li>
+	
+												</ul>
+											</li>
+										</ul>
+	
+								</div>
+		
+								</div>
+						
+								
+							</div>
+							<div class="hamburger ml-auto menu_mm">
+								<i class="fa fa-bars trans_200 menu_mm" aria-hidden="true"></i>
+							</div>
+							
+						</div>
+						<div>
+							<nav class="main_nav">
+								<ul>
+									<li  *ngFor="let menu of sideMenuRoutes; let i= index;" routerLink="./{{menu.route}}" [ngClass]="{ active: activeRoute( menu.title.toLowerCase() ) === true }" >
+										 <a> {{menu.title}}  </a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		
+		<!-- Menu -->
+		<div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+			<div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+			<div class="logo menu_mm"><a href="/">Dealbuddy</a></div>
+			<div class="search">
+				<!-- <div>
+	
+					<img class="header_search_icon menu_mm" src="../../../assets/new/images/search_2.png" alt="mobile_search_input">
+					<input [ngModelOptions]="{standalone: true}" type="text" class="header_search_input menu_mm"  placeholder="Let's find a deal!"   [(ngModel)]="searchKeyword" (keyup)="searchThisKeyword($event)"  >
+	
+				</div> -->
+			</div>
+			<nav class="menu_nav">
+				<ul class="menu_mm">
+				
+					<li  *ngFor="let menu of sideMenuRoutes; let i= index;" routerLink="./{{menu.route}}" [ngClass]="{ active: activeRoute( menu.title.toLowerCase() ) === true }" >
+														
+										 <a> {{menu.title}}  </a>
+	
+					</li>
+	
+					<li  *ngIf="utils.returnLoggedInOrNot() == false" routerLink="/profile"  >   <a> Login </a> </li>
+					<li  *ngIf="utils.returnLoggedInOrNot() == false" routerLink="/profile"  >  <a> Signup </a> </li>
+	
+					<li  *ngIf="utils.returnLoggedInOrNot() == true" routerLink="/profile"  >  <a> <i class="fa fa-user" ></i> My Profile </a>   </li>
+					<li  *ngIf="utils.returnLoggedInOrNot() == true" (click)="logTheUserOut()" >  <a> Log out </a> </li>
+	
+				</ul>
+			</nav>
+		</div>
+		
+		
+	
+		<!-- Home -->
+		<div class="home">
+			<!-- <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../../../assets/new/images/category.jpg" data-speed="0.8"></div> -->
+		</div>
+	
+
+	
+</div>
+ 
+                
+
+
+	

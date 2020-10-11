@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Coupon Card </title>
+
+    <link rel="stylesheet" type="text/css" href="./card.css" />
+
+</head>
+<body>
+
+    <div  class="main_content" >
+        
+         	<!-- Small Card With Image -->
+             <div class="card card_small_with_image grid-item singleFullCouponBox" >
+
+                    <!-- connections buttons -->
+                    <div class="feedBottomConnectionsIcons displayFlex boxShadowed"  >
+                                
+                                     
+                        <!-- <i 
+                            *ngFor="let userIntIcon of userInteractionIcons" 
+                            id="{{feed?.id}}" 
+                            class="fa {{userIntIcon.icon}} colorNavy"
+                            (click)="bookmarkThisDeal(userIntIcon,feed)"
+                        ></i>  -->
+            
+                        
+                    </div>
+            
+                  <div class="card-img-top-div" >
+            
+                        <!-- card image -->
+                    <img class="card-img-top" alt="deal_image"  src="https://static.slickdealscdn.com/attachment/2/5/0/5/1/4/200x200/8425912.thumb"  />
+              
+            
+                    </div>
+            
+                    <div class="card-body">
+            
+                        <!-- vendor -->
+                        <small class="post_meta"> Reebok </small>
+                            
+                        <!-- title -->
+                        <div class="card-title card-title-small"><a href="#"> An example of a reebok coupon </a></div>
+            
+                        
+                        <!-- description -->
+                        <!-- <small class="post_meta"> {{ feed?.description }} </small> -->
+            
+                        <!-- expires -->
+                        <small class="post_meta"><a href="#">  Expires: </a><span> 29/22/2918 </span></small>
+            
+                        <div class="feedBottomConnections flexThis" >
+            
+                            <a target="_blank" href="{{feed?.url}}" >
+                                <button class="feedGetCoupon" >  Get this coupon  </button>
+                            </a> 
+            
+                            <button class="feedOpenMoreInfo"  > 
+            
+                                <img  src="open.png" alt="open_this_deal">
+            
+                            </button>
+            
+                        </div>       
+                        
+                    </div>
+                    
+                </div>
+
+    </div>
+
+
+    <select>
+        <option value="" disabled selected hidden>Select your option</option>
+        <option value="hurr">Durr</option>
+    </select>
+    
+</body>
+</html>

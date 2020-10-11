@@ -1,0 +1,19 @@
+
+        <div class="topNavigation">
+
+            <div class="topNavigationInner displayFlex">
+
+                    <p  *ngFor="let menu of sideMenuRoutes; let i= index;" routerLink="./{{menu.route}}" [ngClass]="{ active: activeRoute( menu.title.toLowerCase() ) === true }" >
+               
+                        <!-- <i class="fa {{menu.icon}}" aria-hidden="true"></i>  -->
+                         {{menu.title}} 
+                
+                    </p>
+
+            </div>
+
+        </div>    
+
+            
+
+   

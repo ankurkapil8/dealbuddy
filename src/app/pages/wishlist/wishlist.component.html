@@ -1,0 +1,188 @@
+
+        <div class="main_content">
+
+             <div class="section_content">
+
+                            
+                            <div class="wishlistFlex">
+
+
+                                    <!-- Small Card With Image -->
+                                    <div class="card card_small_with_image grid-item singleFullCouponBox wishlistBox" >
+
+                                        
+                                                <div class="ibox-content ibox-heading nav-header nav-header-style1">
+
+                                                        <div class="col-lg-12 addingKeyword"> 
+    
+                                                            <h4> <i class="fa fa-star"></i> Add keywords to find items you Wish for! </h4>
+
+                                                        </div>
+
+                                                </div>
+
+                                                <div class="feed-activity-list">
+                                    
+                                                                
+                                                            <div class="feed-element" >
+
+                                                                    <div class="col-lg-12 addingKeyword"> 
+
+                                                                        <div class="col-lg-10">
+                                                                                <input id="keyword" type="text" placeholder="New Keyword" [(ngModel)]="keywordValue" >
+                                                                        </div>
+
+                                                                        <div class="col-lg-2">
+                                                                                <button class="btn btn-success" (click)="addThisKeyword()" > Add <i class="fa fa-plus"></i> </button> 
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <br>
+                                        
+                                                                    <p class="text-muted text-center" *ngIf="allWishlists.length == 0"> There are no tagged keywords, add some to get notified... </p>
+
+                                                            
+                                                                    <br>
+
+
+                                                                    <div class="col-lg-12"> 
+                                
+
+                                                                            <div class="feed-element"  *ngFor="let feed of prepareAllWishlist; let i = index;" >
+
+                                                                                    <div class="row">
+                                                        
+                                                                                        <div class="col-lg-12"> 
+                                                        
+                                                                                            <div class="col-lg-2">  
+                                                                
+                                                                                                    <strong class="feedKeywordListingIndex"  > {{i + 1 }}</strong>
+
+                                                                                            </div>
+
+                                                        
+                                                                                            <div class="col-lg-8">  
+                                                        
+                                                                                                    <i class="fa fa-star"></i>  <strong class="feedKeywordListing" > {{feed}} </strong>
+
+                                                                                            </div>
+                                                        
+                                                                                            <div class="col-lg-2 displayFlex" >  
+                                                                                                
+                                                                                                    <i id="cursored" class="fa fa-trash" (click)="removeThisKeyword(allWishlists[i])" ></i>
+                                                        
+                                                                                            </div>
+                                                        
+                                                                                        </div>
+                                                        
+                                                                                    </div>
+                                                        
+                                                        
+                                                                            </div>
+                                                        
+
+                                                                    </div>
+                                
+                                                            </div>
+
+                                    
+                                                </div>
+
+                                    </div>
+
+
+                                    <!-- Small Card With Image -->
+                                    <div class="card card_small_with_image grid-item singleFullCouponBox wishlistBox" >
+
+                                    
+                                                        <div class="ibox-content ibox-heading nav-header nav-header-style2">
+
+                                                            <div class="col-lg-12 addingKeyword"> 
+    
+                                                                    <h4> <i class="fa fa-star"></i> Lookup your friend's wishlist! </h4>
+
+                                                            </div>
+
+                                                        </div>
+                                    
+                                    
+                                                        <div class="ibox-content">
+                                                            <div class="feed-activity-list">
+                                        
+                                                                    
+                                                                <div class="feed-element" >
+    
+                                                                        <div class="col-lg-12 addingKeyword"> 
+    
+                                                                            <div class="col-lg-10">
+                                                                                <input  id="keyword" type="email" (keyup)="callGetWishlistWhenInput($event)" placeholder="User email" [(ngModel)]="emailValue" >
+                                                                            </div>
+    
+                                                                            <div class="col-lg-2">
+                                                                                    <button class="btn btn-success" (click)="getWIshlistByInputEmail()" > Get <i class="fa fa-plus"></i> </button> 
+                                                                            </div>
+    
+                                                                        </div>
+    
+                                                                        <br>
+                                                                        <br>
+                                                                        <br>
+                                                                        
+                                                                        <p class="text-muted text-center" *ngIf="allWishlists.length == 0"> No listings at the moment, check by your friends email!... </p>
+                                                                
+                                                                        <br>
+                                                                        <br>
+    
+    
+                                                                        <div class="col-lg-12"> 
+                                    
+    
+                                                                                <div class="feed-element"  *ngFor="let feed of myFriendsWishlistPrepared; let i = index;" >
+    
+                                                                                        <div class="row">
+                                                            
+                                                                                            <div class="col-lg-12"> 
+                                                            
+                                                                                                <div class="col-lg-2">  
+                                                                    
+                                                                                                        <strong class="feedKeywordListingIndex"  > {{i + 1 }}</strong>
+    
+                                                                                                </div>
+    
+                                                            
+                                                                                                <div class="col-lg-8">  
+                                                            
+                                                                                                        <i class="fa fa-star"></i>  <strong class="feedKeywordListing" > {{feed}} </strong>
+    
+                                                                                                </div>
+                                                                                            
+                                                                                            </div>
+                                                            
+                                                                                        </div>
+                                                            
+                                                            
+                                                                                </div>
+                                                            
+    
+                                                                        </div>
+                                    
+                                                                </div>
+    
+                                        
+                                                            </div>
+                                                        </div>
+                                    
+                                                            
+                                    </div>
+
+                            </div>
+                            
+                            <!-- grid clearfix ends here -->
+                </div>
+
+        </div>
+
+
+        <div class="load_more">
+        </div>

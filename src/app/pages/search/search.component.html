@@ -1,0 +1,105 @@
+
+
+<div class="miniOverallWrapper">
+    <div class="fullCouponList wishlistParentInner row flex">
+ 
+                    <div class="col-lg-12">
+
+                            <div class="ibox-content ibox-heading nav-header-style1">
+                                <h3><i class="fa fa-search"></i> Your search results </h3>
+                                <small><i class="fa fa-time"></i> Total Number of results {{ allDeals.length }} </small>
+                            </div>
+
+
+                            <div class="ibox-content">
+                                
+
+                                        <div class="loaderParent" *ngIf="allDeals.length == 0" >
+
+                                                        <div *ngIf="stopLoading == true"  >
+                                                            <img class="loaderParentImg" src="../../../assets/saucer.png" />
+                                                            <p> No items available to display  </p>
+                                                        </div>
+                    
+                                                        <div *ngIf="stopLoading == false" class="loader"></div>
+                                        </div>
+
+                                        <div class="search_results">
+
+                                                <!-- Small Card With Image -->
+                                                <div class="card card_small_with_image grid-item singleFullCouponBox flex" *ngFor="let feed of allDeals" >
+
+                                                                <!-- connections buttons -->
+                                                                <div class="feedBottomConnectionsIcons displayFlex boxShadowed" *ngIf="utils.returnLoggedInOrNot() == true" >
+                                                                            
+                                                                                    <i 
+                                                                                        *ngFor="let userIntIcon of userInteractionIcons" 
+                                                                                        id="{{feed?.id}}" 
+                                                                                        class="fa {{userIntIcon.icon}} colorNavy"
+                                                                                        (click)="bookmarkThisDeal(userIntIcon,feed)"
+                                                                                    ></i> 
+                                                                    
+                                                                </div>
+                                                                
+                                                             
+                                                                <div class="card-body">
+                                                                                            
+                                                                  
+                                                                    <div class="card-img-top-div flex" >
+                                                
+                                                                        <div class="card-img-top-div-img" >
+                                                
+                                                                            <!-- card image -->
+                                                                                <img class="card-img-top" alt="deal_image" *ngIf="feed?.imageUrl !== null && feed?.imageUrl.length > 6" src="{{ feed?.imageUrl }}" onerror="this.onerror=null;this.src='../../../assets/img/deals_2.png' " />
+                                                                                <img class="card-img-top" alt="deal_image" *ngIf="feed?.base64ImageBytes !== null && feed?.base64ImageBytes.length > 6" [src]="feed.base64ImageBytes | safeContent " onerror="this.onerror=null;this.src='../../../assets/img/deals_2.png' " />
+                                                                                <img class="card-img-top" alt="deal_image" *ngIf="utils.returnDefualtImageForSite(feed?.base64ImageBytes, feed?.imageUrl)" src="../../../assets/img/deal_3.png" onerror="this.onerror=null;this.src='../../../assets/img/deal_3.png' " />
+                                        
+                                                                          
+                                                                        </div>
+
+
+                                                                        <div class="card-img-top-div-data" >
+                            
+                                                                                <!-- vendor -->
+                                                                                <small class="post_meta"> {{ feed?.vendor }} </small>
+                                    
+                                                                                <!-- title -->
+                                                                                <div class="card-title card-title-small"><a> {{ feed?.title }} </a></div>
+                        
+                                                                                <!-- expires -->
+                                                                                <small class="post_meta"><a href="#">  Expires: </a><span> {{ feed?.formattedDate }} </span></small>
+                                    
+                                                                                <!-- selling price -->
+                                                                                <small class="post_meta discount_price"><a href="#">  Price: </a><span> $0 </span></small>
+                            
+                                                                        </div> 
+                            
+                                                                    </div>
+
+                                                                    <!-- bottom icons -->
+                                                                    <div class="feedBottomConnections flexThis" >
+                            
+                                                                        <a target="_blank" href="{{feed?.url}}" >
+                                                                            <button class="feedGetCoupon" >  Get this deal  </button>
+                                                                        </a> 
+                                                
+                                                                        <button class="feedOpenMoreInfo" (click)="utils.openFeedDialogInfo(feed)" > 
+                        
+                                                                            <img  src="../../../assets/new/images/open.png" alt="open_this_deal">
+                        
+                                                                        </button>
+                        
+                                                                    </div>       
+                                                                    
+                                                                </div>
+                                                                
+                                                </div>
+                        
+                                        </div>
+
+
+                        </div>
+                    </div>
+
+    </div>
+</div>

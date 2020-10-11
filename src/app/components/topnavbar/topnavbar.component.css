@@ -1,0 +1,76 @@
+
+
+.searchBar{ 
+    width: 100%;
+}
+
+.searchBar .innerSearchBar{
+    width: 80%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.searchBar .innerSearchBar div{
+        width: 30%;
+        /* border: 1px solid #fff; */
+}
+
+.searchBar .innerSearchBar .siteLogo img{
+        width: 60%;
+        height: auto;
+}
+
+.searchBar .innerSearchBar .searchInputBox input{
+        padding: 10px 10px 10px 20px;
+        width: 90%;
+        border: none;
+        margin-top: 1%;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+        border-radius: 30px;
+}
+
+.searchBar .innerSearchBar .searchInputBox button{
+        padding: 8px;
+        border: none;
+        width: 35px;
+        margin: 1% 0 0 -10%;
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+        background: #6499D4;
+        border-radius: 50%;
+        color: #fff;
+}
+
+
+
+.searchBar .innerSearchBar .signup{
+        text-align: right;
+}
+
+.searchBar .innerSearchBar .signup p{
+    font-size: 1.5rem;
+    margin-top: 4%;
+    color: #fff;
+}
+
+
+
+/* reponsiveness */
+@media (max-width: 768px) {
+
+    .searchBar input{
+        width: 200px !important;
+    }
+
+}
+  
+@media (max-width: 350px) {
+ 
+    .searchBar input{
+        width: 200px !important;
+    }
+
+}
