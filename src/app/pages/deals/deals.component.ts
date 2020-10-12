@@ -219,7 +219,7 @@
         this.matchedDeals = [];
         forkJoin([
             this.utils.getMatchedDeal(),
-            this.utils.getAllDeals(this.pageId,undefined)]
+            this.utils.getNonMatchedDeals()]
 
           ).subscribe((res:Array<any>) =>{
                 console.log(res);

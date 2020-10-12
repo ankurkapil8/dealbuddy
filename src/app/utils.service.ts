@@ -86,6 +86,7 @@ export class UtilsService {
   public dealsByZipCode           =  `${this.baseUrl}/deals/dealsByZipcode`;
   public savedDeals               = `${this.baseUrl}/deals/savedDeals`;
   public getMatchedDealUrl        = `${this.baseUrl}/deals/matchedDeals`;
+  public getNonMatchedDealUrl     = `${this.baseUrl}/deals/nonMatchedDeals`;
 
   // coupons
   public bookmarkCoupons          = `${this.baseUrl}/coupons/bookmarkCoupon`;
@@ -1060,6 +1061,18 @@ public getLocalDeals(){
 
     this.router.navigateByUrl('/profile');
   }
+
+}
+public getNonMatchedDeals(){
+  let parameters =  new HttpParams()
+  if( this.returnLoggedInOrNot() == true ){
+    parameters =  new HttpParams()
+    .set('userEmail', this.userInformation.userEmail.toString() );
+  }else{
+    this.openSnackBar('Please signup to access this feature');
+    this.router.navigateByUrl('/profile');
+  }
+  return this.http.get( `${this.getNonMatchedDealUrl}`, { params: parameters } );
 
 }
 }
