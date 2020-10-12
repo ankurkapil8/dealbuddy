@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UtilsService } from "../../utils.service";
 import { Router } from "@angular/router";
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-coupon',
@@ -47,6 +48,7 @@ export class CouponComponent implements OnInit {
     public allDeals = [];
     public savedDCoupons = [];
     public stopLoading = false;
+    public matchedDeals = [];
 
     
   constructor(
@@ -56,12 +58,13 @@ export class CouponComponent implements OnInit {
   ){}
 
   ngOnInit() {
-    this.getAllCoupons( this.pageId, undefined);
+    //this.getAllCoupons( this.pageId, undefined);
+    this.getMatchedDeal();
   }
 
   pushToCollection(where, data){
 
-            if( where === this.allDeals  ){
+            if( where === this.allDeals  ||   where === this.matchedDeals){
 
                 if(where.length == 0){ this.stopLoading = true; }
 
@@ -88,8 +91,19 @@ export class CouponComponent implements OnInit {
                     });
 
                 });
+                this.savedDCoupons.map( data =>{
+
+                    this.matchedDeals.map( oneDeal =>{
+                                if(oneDeal.id === data.id ){
+                                    document.getElementById(`${oneDeal.id}`).style.color = 'red';
+                                    oneDeal.isBookmarked = true;
+                                }
+                    });
+
+                });
 
                 this.allDeals = [...this.allDeals];
+                this.matchedDeals = [...this.matchedDeals];
 
             }
 
@@ -113,6 +127,11 @@ export class CouponComponent implements OnInit {
                                     oneDeal.isBookmarked = true;
                                 }
                     });
+                    this.matchedDeals.map( oneDeal =>{
+                        if(oneDeal.id === data.id ){
+                            oneDeal.isBookmarked = true;
+                        }
+            });
 
             });
 
@@ -253,6 +272,25 @@ export class CouponComponent implements OnInit {
 
     }
 
+    getMatchedDeal(){
+        this.allDeals = [];
+        this.matchedDeals = [];
+        forkJoin([
+            this.utils.getMatchedCoupons(),
+            this.utils.getNonMatchedCoupons()]
+
+          ).subscribe((res:Array<any>) =>{
+                console.log(res);
+                this.pushToCollection(this.matchedDeals,res[0]);
+                this.pushToCollection(this.allDeals,res[1]);
+                this.getSavedCouponsHere();
+            },
+            err =>{
+                console.log(err);
+                this.utils.openSnackBar('Sorry we could not get all deals, please check your internet connection');
+            }
+        );        
+    };
 
 
 }

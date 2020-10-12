@@ -105,6 +105,10 @@ export class UtilsService {
   public subscriptionsUrl = `${this.baseUrl}/subscriptions`;
   private adminEmail = 'vamsi.katta@gmail.com';
 
+  public getMatchedCouponUrl        = `${this.baseUrl}/coupons/matchedCoupons`;
+  public getNonMatchedCouponUrl     = `${this.baseUrl}/coupons/nonMatchedCoupons`;
+
+
   // DELETE /dealbuddy/rest/coupons/deleteCouponFromBookmark
 /*-------------------------------------------------------- misscellenous functions --------------------------------------------------------*/
 
@@ -1075,4 +1079,29 @@ public getNonMatchedDeals(){
   return this.http.get( `${this.getNonMatchedDealUrl}`, { params: parameters } );
 
 }
+public getNonMatchedCoupons(){
+  let parameters =  new HttpParams()
+  if( this.returnLoggedInOrNot() == true ){
+    parameters =  new HttpParams()
+    .set('userEmail', this.userInformation.userEmail.toString() );
+  }else{
+    this.openSnackBar('Please signup to access this feature');
+    this.router.navigateByUrl('/profile');
+  }
+  return this.http.get( `${this.getNonMatchedCouponUrl}`, { params: parameters } );
+
+}
+public getMatchedCoupons(){
+  let parameters =  new HttpParams()
+  if( this.returnLoggedInOrNot() == true ){
+    parameters =  new HttpParams()
+    .set('userEmail', this.userInformation.userEmail.toString() );
+  }else{
+    this.openSnackBar('Please signup to access this feature');
+    this.router.navigateByUrl('/profile');
+  }
+  return this.http.get( `${this.getMatchedCouponUrl}`, { params: parameters } );
+
+}
+
 }

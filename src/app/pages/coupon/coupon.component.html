@@ -35,7 +35,7 @@
 
 							<div class="section_content">
 
-                                <div class="loaderParent" *ngIf="allDeals.length == 0" >
+                                <div class="loaderParent" *ngIf="matchedDeals.length == 0" >
 
                                     <div *ngIf="stopLoading == true"  >
                                         <img class="loaderParentImg" src="assets/saucer.png" />
@@ -48,7 +48,7 @@
 								<div class="flex clearfix">
 
 									<!-- Small Card With Image -->
-									<div class="card card_small_with_image grid-item singleFullCouponBox" *ngFor="let feed of allDeals" >
+									<div class="card card_small_with_image grid-item singleFullCouponBox" *ngFor="let feed of matchedDeals" >
 
                                         <!-- connections buttons -->
                                         <div class="feedBottomConnectionsIcons displayFlex boxShadowed" *ngIf="utils.returnLoggedInOrNot() == true" >
