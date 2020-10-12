@@ -66,6 +66,8 @@ import { SavedComponent } from './pages/saved/saved.component';
 import { AllowLocationDialogComponent } from './components/allow-location-dialog/allow-location-dialog.component';
 import { ItemInfoDialogComponent } from './components/item-info-dialog/item-info-dialog.component';
 import { SessionDialogComponent } from './components/session-dialog/session-dialog.component';
+import { LocalComponent } from './pages/local/local.component';
+import { MyoffersComponent } from './pages/myoffers/myoffers.component';
 
 
 @NgModule({
@@ -84,7 +86,9 @@ import { SessionDialogComponent } from './components/session-dialog/session-dial
     SavedComponent,
     AllowLocationDialogComponent,
     ItemInfoDialogComponent,
-    SessionDialogComponent  
+    SessionDialogComponent,
+    LocalComponent,
+    MyoffersComponent  
   ],
   imports: [
     BrowserModule,

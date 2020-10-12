@@ -1,7 +1,7 @@
     import { Component, OnInit } from '@angular/core';
     import { UtilsService } from "../../utils.service";
     import {Router} from "@angular/router";
-
+    import { forkJoin } from 'rxjs';
 
     @Component({
         selector: 'app-deals',
@@ -9,81 +9,66 @@
     })
 
     export class DealsComponent implements OnInit {
-
     public allDeals = [];
-
+    matchedDeals = [];
     public filterButtons = [
         {  'class': '',  'icon': 'fa-user',  'title': '4 you' },
         {  'class': 'bordered',  'icon': 'fa-list-ul',  'title': 'All' },
         {  'class': '',  'icon': 'fa-map-marker',  'title': 'Local' },
         // {  'class': '',  'icon': 'fa-bookmark',  'title': 'Saved' }
     ];
-
     public savedDeals = [];
     public userInteractionIcons = this.utils.userInteractionIcons;
     public pageId = 1;
     public stopLoading = false;
-
     constructor(
         public utils: UtilsService,
         private router: Router,
     ){}
-
-
     ngOnInit() {
-        this.getAllDeals( this.pageId, undefined);
+        //this.getAllDeals( this.pageId, undefined);
+        this.getMatchedDeal();
     }
-
-
-
     public trackItem (index: number, item) {
         return index;
     }
-
     pushToCollection(where, data){
-
-        if( where === this.allDeals  ){
-
+        if( where === this.allDeals ||   where === this.matchedDeals){
             if(where.length == 0){ this.stopLoading = true; }
-
             data.map( oneData => {
-    
                 let newDate = this.utils.convertEpochDateToLocalDate( oneData.entryTime );
                 oneData.formattedDate = `${ newDate }`;
-         
             });
-    
             data.map( oneData => where.push(oneData) );
-
         }else{
-
             data.map( oneData => where.push(oneData) );
-
             this.savedDeals.map( data =>{
-
                 this.allDeals.map( (oneDeal, index) =>{
-
-                            if(oneDeal.id === data.id ){
-                                document.getElementById(`${oneDeal.id}`).style.color = 'red';
-                                oneDeal.isBookmarked = true;
-                            }
+                    if(oneDeal.id === data.id ){
+                        document.getElementById(`${oneDeal.id}`).style.color = 'red';
+                        oneDeal.isBookmarked = true;
+                    }
                 });
-
+            });
+            this.savedDeals.map( data =>{
+                this.matchedDeals.map( (oneDeal, index) =>{
+                    if(oneDeal.id === data.id ){
+                        document.getElementById(`${oneDeal.id}`).style.color = 'red';
+                        oneDeal.isBookmarked = true;
+                    }
+                });
             });
 
             // update the deals listing
             this.allDeals = [...this.allDeals];
+            this.matchedDeals = [...this.matchedDeals];
 
         }
-
     }
 
     getAllDeals(pageId, filterBy){
-
         this.allDeals = [];
-        
         this.utils.getAllDeals(pageId, filterBy).subscribe(
-
             res =>{
               this.pushToCollection( this.allDeals, res );
               this.getSavedDeals();
@@ -91,14 +76,8 @@
             err =>{
                 this.utils.openSnackBar('Sorry we could not get all deals, please check your internet connection');
             }
-          
       );
-
-
     };
-    
-
-
     
     selectThisButton( btn ){
         let btnTitle = btn.title;
@@ -115,7 +94,6 @@
         });
 
     }
-
     filterThisResults(by){
 
         const page = 1;
@@ -148,13 +126,10 @@
         }
 
     }
-
     callFilteredApi(page,filterBy){
 
         this.getAllDeals(page, filterBy);
     }
-
-    
     activeRoute(filterButton){
 
         if( filterButton.class === 'bordered' ){
@@ -162,8 +137,6 @@
         }
         
     }
-
-
     getSavedDeals( deleteID='1' ){
         
         this.savedDeals = [];
@@ -180,7 +153,6 @@
         );
 
     }
-
     bookmarkThisDeal(icon,feed){
 
                     if(icon.title === 'bookmark' && feed.isBookmarked == true ){
@@ -193,7 +165,6 @@
 
 
     }
-
     sendTheBookmarkDelete(feed){
 
         this.utils.deleteADealBookmark(feed.id).subscribe(
@@ -220,8 +191,6 @@
         );
 
     }
-
-
     sendTheBookmarkPost(dealId){
 
 
@@ -245,9 +214,23 @@
         )
 
     }
+    getMatchedDeal(){
+        this.allDeals = [];
+        this.matchedDeals = [];
+        forkJoin([
+            this.utils.getMatchedDeal(),
+            this.utils.getAllDeals(this.pageId,undefined)]
 
-
-    
-
-
+          ).subscribe((res:Array<any>) =>{
+                console.log(res);
+                this.pushToCollection(this.matchedDeals,res[0]);
+                this.pushToCollection(this.allDeals,res[1]);
+                this.getSavedDeals();
+            },
+            err =>{
+                console.log(err);
+                this.utils.openSnackBar('Sorry we could not get all deals, please check your internet connection');
+            }
+        );        
+    };
 }

@@ -309,3 +309,8 @@
 .curson-pointer{
   cursor: pointer;
 }
+.divider{
+  background-color: gray;
+  height: 10px;
+  width: 100%;
+}

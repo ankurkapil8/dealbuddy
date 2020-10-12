@@ -68,7 +68,7 @@ export class UtilsService {
   public getDealsUrl      = `${this.baseUrl}/deals`;
   public getEventsUrl     = `${this.baseUrl}/events`;
   public getAllSavedUrl   = `${this.baseUrl}/global/allSaved`;
-
+  public getLocalDealsUrl = `${this.baseUrl}/deals/localDeals`;
   // user auth
   public addNewUser       = `${this.baseUrl}/users`;
   public getUser          = `${this.baseUrl}/users/user`;
@@ -85,7 +85,8 @@ export class UtilsService {
   public deleteBookmarkedDeal     = `${this.baseUrl}/deals/deleteFromBookmark`;
   public dealsByZipCode           =  `${this.baseUrl}/deals/dealsByZipcode`;
   public savedDeals               = `${this.baseUrl}/deals/savedDeals`;
-  
+  public getMatchedDealUrl        = `${this.baseUrl}/deals/matchedDeals`;
+
   // coupons
   public bookmarkCoupons          = `${this.baseUrl}/coupons/bookmarkCoupon`;
   public deleteBookmarkedCoupons  = `${this.baseUrl}/coupons/deleteCouponFromBookmark`;
@@ -778,6 +779,18 @@ export class UtilsService {
 
       }
 
+      public getMatchedDeal(){
+        let parameters =  new HttpParams()
+        if( this.returnLoggedInOrNot() == true ){
+          parameters =  new HttpParams()
+          .set('userEmail', this.userInformation.userEmail.toString() );
+        }else{
+          this.openSnackBar('Please signup to access this feature');
+          this.router.navigateByUrl('/profile');
+        }
+        return this.http.get( `${this.getMatchedDealUrl}`, { params: parameters } );
+      }
+
 
 
   /*-------------------------------------------------------- user api calls --------------------------------------------------------*/
@@ -848,7 +861,6 @@ export class UtilsService {
 
         return this.http.get(`${this.verifyUserCode}`, { params: parameters } );
       }
-
   
  /*-------------------------------------------------------- events api calls --------------------------------------------------------*/
 
@@ -1032,10 +1044,22 @@ public getLocalEventsByZipCode(){
 
 
 }
+public getLocalDeals(){
+ let userLocaltion = JSON.parse( localStorage.getItem('userLocation') );
+    if( this.returnLoggedInOrNot() == true ){
 
+    if(userLocaltion !=""){
+          let parameters =  new HttpParams()
+          .set('latitude', userLocaltion.latitude )
+          .set('longitude', userLocaltion.longitude )
+          return this.http.get( this.getLocalDealsUrl, { params: parameters } );
+    }
 
+  }else{
+    this.openSnackBar('Please signup or allow location to access this feature');
 
+    this.router.navigateByUrl('/profile');
+  }
 
-
-
+}
 }

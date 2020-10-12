@@ -144,6 +144,7 @@ export class Topnavbar {
 
 
     activeRoute(routename: string): boolean{
+        routename = routename.split(" ").join("");
         return this.router.url.indexOf(routename) > -1;
     }
 

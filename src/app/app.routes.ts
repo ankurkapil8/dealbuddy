@@ -6,7 +6,8 @@ import { DealsComponent } from './pages/deals/deals.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SearchComponent } from './pages/search/search.component';
 import { SavedComponent } from './pages/saved/saved.component';
-
+import { LocalComponent } from './pages/local/local.component';
+import {MyoffersComponent} from './pages/myoffers/myoffers.component';
 export const appRoutes=[
     
     {
@@ -41,7 +42,17 @@ export const appRoutes=[
     {
         path: 'search',
         component: SearchComponent
+    },
+    {
+        path: 'local',
+        component: LocalComponent
+    },
+    {
+        path: 'myoffers',
+        component: MyoffersComponent
+
     }
+
  
  
 ];
