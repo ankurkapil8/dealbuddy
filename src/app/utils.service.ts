@@ -310,6 +310,7 @@ export class UtilsService {
 
 
     getAllUserSavedItems(){
+      if( this.returnLoggedInOrNot() == true ){
       
           let userEmail = this.userInformation === null ? '': this.userInformation.userEmail.toString();
 
@@ -319,6 +320,10 @@ export class UtilsService {
           // http://db10-env.dvyphnsnse.us-east-2.elasticbeanstalk.com/dealbuddy/rest/global/allSaved?userEmail=henryasante29%40gmail.com
 
           return this.http.get( this.getAllSavedUrl,  { params: parameters } );
+        }else{
+          this.openSnackBar('Please signup or allow location to access this feature');
+          this.router.navigateByUrl('/profile');
+        }
     }
 
     getSavedItemsByEmail(email){

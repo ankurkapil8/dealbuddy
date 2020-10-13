@@ -38,7 +38,7 @@
 								</div>
 							</div>
 							<div>
-								<input [ngModelOptions]="{standalone: true}" id="navbar_search_input" type="text" class="header_search_input"  placeholder="Add Item in shoplist"   [(ngModel)]="keywordValue" >
+								<input (click)="checkLogin()" [ngModelOptions]="{standalone: true}" id="navbar_search_input" type="text" class="header_search_input"  placeholder="Add Item in shoplist"   [(ngModel)]="keywordValue" >
 								<span class="glyphicon glyphicon-plus ml-1" (click)="addThisKeyword()"></span>
 							</div>
 							<div class="mar-50">

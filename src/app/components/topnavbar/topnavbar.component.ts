@@ -302,5 +302,11 @@ export class Topnavbar {
 
     }
 
-
+    checkLogin(){
+        if( this.utils.returnLoggedInOrNot() !== true ){
+            this.utils.openSnackBar('Please signup or allow location to access this feature');
+            this.router.navigateByUrl('/profile');
+        }            
+        
+    }
 }
